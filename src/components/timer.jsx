@@ -47,7 +47,7 @@ export default function Timer() {
         progress = 1500
         setMin(0)
         setSec(0)
-        setProg(0)
+        setProg(1)
     }
 
     function showTime() {
