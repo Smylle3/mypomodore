@@ -1,25 +1,28 @@
-const { createTheme } = require('@mui/material')
-const { blue, orange } = require('@mui/material/colors')
+const { extendTheme } = require("@chakra-ui/react");
 
-const theme = createTheme({
-    palette: {
-        primary: {
-            light: blue[100],
-            main: blue[500],
-            dark: blue[900]
+const theme = extendTheme({
+    colors: {
+        purple: {
+            light: '#4A5568',
+            main: '#2D3748',
+            dark: '#1A202C'
         },
-        secondary: {
-            light: orange[100],
-            main: orange[500],
-            dark: orange[900]
+        orange: {
+            light: '#FEEBC8',
+            main: '#DD6B20',
+            dark: '#652B19'
+        },
+        gray: {
+            light: '#EDF2F7',
+            main: '#718096',
+            dark: '#171923'
         }
-    }
+    },
+    fonts: {
+        body: "system-ui, sans-serif",
+        heading: "Georgia, serif",
+        mono: "Menlo, monospace",
+    },
 })
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark'
-    }
-})
-
-export {darkTheme, theme}
+export default theme
