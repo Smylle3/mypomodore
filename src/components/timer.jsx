@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Button, CircularProgress, CircularProgressLabel, Text } from '@chakra-ui/react'
+import { useAuth } from 'context/context'
 
 export default function Timer() {
+    const { userBreak, userPomodoro } = useAuth()
+
     const [isStart, setIsStart] = useState(false)
     const [timer, setTimer] = useState(false)
+
     const [sec, setSec] = useState(0)
     const [min, setMin] = useState(0)
-    const [fSec, setFSec] = useState(0)
-    const [fMin, setFMin] = useState(25)
+
     const [prog, setProg] = useState(1)
     const [isState, setIsState] = useState('pomodoro')
     const [firstTime, setFirstTime] = useState(0)
@@ -17,6 +20,7 @@ export default function Timer() {
     let progress = 0
 
     let finalSeconds = 0
+    // eslint-disable-next-line no-unused-vars
     let finalMinutes = 0
 
     useEffect(() => {
@@ -30,13 +34,13 @@ export default function Timer() {
     function startTimer() {
         if (firstTime % 2 === 0) {
             setIsState('pomodoro')
-            progress = 1500
-            finalMinutes = 25
+            progress = userPomodoro * 60
+            finalMinutes = userPomodoro
             setFirstTime(firstTime + 1)
         } else if (firstTime % 2 !== 0) {
             setIsState('break')
-            progress = 300
-            finalMinutes = 5
+            progress = userBreak * 60
+            finalMinutes = userBreak
             setFirstTime(firstTime + 1)
         }
         setIsStart(true)
@@ -44,24 +48,21 @@ export default function Timer() {
     }
 
     function stopTimer(event) {
+        clearInterval(timer)
         if (event.type === 'click') {
             setFirstTime(0)
-            finalMinutes = 25
-        } else if (isState === 'break') {
-            finalMinutes = 5
-            setFMin(finalMinutes)
+            finalMinutes = userPomodoro
         } else if (isState === 'pomodoro') {
-            finalMinutes = 25
-            setFMin(finalMinutes)
+            finalMinutes = userPomodoro
+        } else if (isState === 'break') {
+            finalMinutes = userBreak
         }
         setIsStart(false)
-        clearInterval(timer)
         seconds = 0
         finalSeconds = 0
         minutes = 0
-        progress = 1500
+        progress = userPomodoro * 60
         setMin(0)
-        setFSec(0)
         setSec(0)
         setProg(1)
     }
@@ -72,7 +73,6 @@ export default function Timer() {
         progress--
         setProg(progress)
         setSec(seconds)
-        setFSec(finalSeconds)
         if (seconds >= 60) {
             seconds = 0
             setSec(seconds)
@@ -81,16 +81,14 @@ export default function Timer() {
         }
         if (finalSeconds < 0) {
             finalSeconds = 59
-            setFSec(finalSeconds)
             finalMinutes--
-            setFMin(finalMinutes)
         }
     }
 
     return (
         <CircularProgress
             value={prog}
-            max={isState === 'pomodoro' ? 1500 : 300}
+            max={isState === 'pomodoro' ? userPomodoro * 60 : userBreak * 60}
             size="20rem"
             capIsRound
             color={isState === 'pomodoro' ? 'orange.main' : 'blue.500'}
@@ -110,7 +108,7 @@ export default function Timer() {
                     {min >= 10 ? min : `0${min}`}:{sec >= 10 ? sec : `0${sec}`}
                 </Text>
                 <Text fontSize="md">
-                    {fMin >= 10 ? fMin : `0${fMin}`}:{fSec >= 10 ? fSec : `0${fSec}`}
+                    {isState === 'pomodoro' ? `${userPomodoro} min` : `${userBreak} min`}
                 </Text>
                 {isStart ? (
                     <Button
