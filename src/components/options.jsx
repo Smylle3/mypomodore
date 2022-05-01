@@ -20,18 +20,12 @@ export default function Options(props) {
     const [enableNotify, setEnableNotify] = useState(false)
     const handleEnable = () => {
         if (Notification.permission === 'granted') {
-            Notification.requestPermission((response) => {
-                if (response === 'granted') {
-                    setEnableNotify(true)
-                } else {
-                    setEnableNotify(false)
-                }
-            })
+            setEnableNotify(true)
         } else if (
             Notification.permission === 'denied' ||
             Notification.permission === 'default'
         ) {
-            Notification.requestPermission((response) => {
+            Notification.requestPermission().then((response) => {
                 if (response === 'granted') {
                     setEnableNotify(true)
                 } else {
