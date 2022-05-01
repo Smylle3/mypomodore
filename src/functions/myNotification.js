@@ -19,6 +19,6 @@ export function MyNotification(title, message) {
 }
 
 function IsNotify(title, message) {
-    new Notification('titulo')
-    //new Audio(soundNotification).play()
+    new Notification(title, { body: message, icon: iconNotification })
+    new Audio(soundNotification).play()
 }
