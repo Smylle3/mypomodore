@@ -30,6 +30,13 @@ export default function Options(props) {
                             <MyInput id="pomodoro" number={25} />
                             <MyInput id="break" number={5} />
                         </FormControl>
+                        {window.Notification ? (
+                            Notification.permission
+                        ) : (
+                            <Text color="red" margin="1em 1em 0em 0">
+                                This browser doesn't have support for notifications.
+                            </Text>
+                        )}
                     </Flex>
                 </ModalBody>
                 <ModalFooter display="flex" justifyContent="center">
