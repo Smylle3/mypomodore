@@ -55,15 +55,15 @@ export default function Timer() {
             finalMinutes = userPomodoro
         } else if (isState === 'pomodoro') {
             finalMinutes = userPomodoro
-            /* MyNotification(
+            MyNotification(
                 'Hora do descanso',
                 `O tempo de foco acabou, use seus ${userBreak} minutos para beber uma água e descansar.`
-            ) */
+            )
         } else if (isState === 'break') {
-            /* MyNotification(
+            MyNotification(
                 'Hora de trabalhar',
                 `O tempo de descanso acabou, use seus ${userBreak} minutos e tente manter o foco ao máximo, você consegue!.`
-            ) */
+            )
             finalMinutes = userBreak
         }
         setIsStart(false)
