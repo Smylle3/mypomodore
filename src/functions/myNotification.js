@@ -5,15 +5,6 @@ export function MyNotification(title, message) {
     if ('Notification' in window) {
         if (Notification.permission === 'granted') {
             IsNotify(title, message)
-        } else if (
-            Notification.permission === 'denied' ||
-            Notification.permission === 'default'
-        ) {
-            Notification.requestPermission((response) => {
-                if (response === 'granted') {
-                    IsNotify(title, message)
-                }
-            })
         }
     }
 }
