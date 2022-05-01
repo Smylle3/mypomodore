@@ -10,6 +10,10 @@ export function MyNotification(title, message) {
 }
 
 function IsNotify(title, message) {
-    new Notification(title, { body: message, icon: iconNotification })
+    let notification =  new Notification(title, { body: message, icon: iconNotification })
     new Audio(soundNotification).play()
+    
+    notification.onclick = () => {
+        window.open("https://mypomodore.vercel.app/")
+    }
 }
