@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, CircularProgress, CircularProgressLabel, Text } from '@chakra-ui/react'
 import { useAuth } from 'context/context'
+import { MyNotification } from 'functions/myNotification'
 
 export default function Timer() {
     const { userBreak, userPomodoro } = useAuth()
@@ -54,7 +55,15 @@ export default function Timer() {
             finalMinutes = userPomodoro
         } else if (isState === 'pomodoro') {
             finalMinutes = userPomodoro
+            MyNotification(
+                'Hora do descanso',
+                `O tempo de foco acabou, use seus ${userBreak} minutos para beber uma água e descansar.`
+            )
         } else if (isState === 'break') {
+            MyNotification(
+                'Hora de trabalhar',
+                `O tempo de descanso acabou, use seus ${userBreak} minutos e tente manter o foco ao máximo, você consegue!.`
+            )
             finalMinutes = userBreak
         }
         setIsStart(false)
