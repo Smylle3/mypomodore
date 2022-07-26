@@ -14,6 +14,6 @@ function IsNotify(title, message) {
     new Audio(soundNotification).play()
     
     notification.onclick = () => {
-        window.open("https://mypomodore.vercel.app/")
+        window.focus()
     }
 }
